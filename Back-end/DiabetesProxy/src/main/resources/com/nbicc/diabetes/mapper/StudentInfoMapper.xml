@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nbicc.diabetes.mapper.StudentInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.nbicc.diabetes.model.StudentInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="student_age" property="studentAge" jdbcType="INTEGER" />
+    <result column="student_sex" property="studentSex" jdbcType="VARCHAR" />
+    <result column="contact_info" property="contactInfo" jdbcType="VARCHAR" />
+    <result column="diabetes_year" property="diabetesYear" jdbcType="VARCHAR" />
+    <result column="insulin_year" property="insulinYear" jdbcType="VARCHAR" />
+    <result column="insulin_type" property="insulinType" jdbcType="VARCHAR" />
+    <result column="insulin_dosage" property="insulinDosage" jdbcType="VARCHAR" />
+    <result column="training_id" property="trainingId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, student_name, student_age, student_sex, contact_info, diabetes_year, insulin_year, 
+    insulin_type, insulin_dosage, training_id, created_at, updated_at, created_by, updated_by, 
+    del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from student_info
+    where id = #{id,jdbcType=VARCHAR} and del_flag = '0'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from student_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.nbicc.diabetes.model.StudentInfo" >
+    insert into student_info (id, student_name, student_age, 
+      student_sex, contact_info, diabetes_year, 
+      insulin_year, insulin_type, insulin_dosage, 
+      training_id, created_at, updated_at, 
+      created_by, updated_by, del_flag
+      )
+    values (#{id,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{studentAge,jdbcType=INTEGER}, 
+      #{studentSex,jdbcType=VARCHAR}, #{contactInfo,jdbcType=VARCHAR}, #{diabetesYear,jdbcType=VARCHAR}, 
+      #{insulinYear,jdbcType=VARCHAR}, #{insulinType,jdbcType=VARCHAR}, #{insulinDosage,jdbcType=VARCHAR}, 
+      #{trainingId,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{updatedBy,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nbicc.diabetes.model.StudentInfo" >
+    insert into student_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="studentAge != null" >
+        student_age,
+      </if>
+      <if test="studentSex != null" >
+        student_sex,
+      </if>
+      <if test="contactInfo != null" >
+        contact_info,
+      </if>
+      <if test="diabetesYear != null" >
+        diabetes_year,
+      </if>
+      <if test="insulinYear != null" >
+        insulin_year,
+      </if>
+      <if test="insulinType != null" >
+        insulin_type,
+      </if>
+      <if test="insulinDosage != null" >
+        insulin_dosage,
+      </if>
+      <if test="trainingId != null" >
+        training_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentAge != null" >
+        #{studentAge,jdbcType=INTEGER},
+      </if>
+      <if test="studentSex != null" >
+        #{studentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInfo != null" >
+        #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="diabetesYear != null" >
+        #{diabetesYear,jdbcType=VARCHAR},
+      </if>
+      <if test="insulinYear != null" >
+        #{insulinYear,jdbcType=VARCHAR},
+      </if>
+      <if test="insulinType != null" >
+        #{insulinType,jdbcType=VARCHAR},
+      </if>
+      <if test="insulinDosage != null" >
+        #{insulinDosage,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingId != null" >
+        #{trainingId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nbicc.diabetes.model.StudentInfo" >
+    update student_info
+    <set >
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentAge != null" >
+        student_age = #{studentAge,jdbcType=INTEGER},
+      </if>
+      <if test="studentSex != null" >
+        student_sex = #{studentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInfo != null" >
+        contact_info = #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="diabetesYear != null" >
+        diabetes_year = #{diabetesYear,jdbcType=VARCHAR},
+      </if>
+      <if test="insulinYear != null" >
+        insulin_year = #{insulinYear,jdbcType=VARCHAR},
+      </if>
+      <if test="insulinType != null" >
+        insulin_type = #{insulinType,jdbcType=VARCHAR},
+      </if>
+      <if test="insulinDosage != null" >
+        insulin_dosage = #{insulinDosage,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingId != null" >
+        training_id = #{trainingId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nbicc.diabetes.model.StudentInfo" >
+    update student_info
+    set student_name = #{studentName,jdbcType=VARCHAR},
+      student_age = #{studentAge,jdbcType=INTEGER},
+      student_sex = #{studentSex,jdbcType=VARCHAR},
+      contact_info = #{contactInfo,jdbcType=VARCHAR},
+      diabetes_year = #{diabetesYear,jdbcType=VARCHAR},
+      insulin_year = #{insulinYear,jdbcType=VARCHAR},
+      insulin_type = #{insulinType,jdbcType=VARCHAR},
+      insulin_dosage = #{insulinDosage,jdbcType=VARCHAR},
+      training_id = #{trainingId,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getStudentsByTrainingId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from student_info
+    where training_id = #{0,jdbcType=VARCHAR} and del_flag = '0'
+  </select>
+</mapper>

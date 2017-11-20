@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nbicc.diabetes.mapper.TrackingInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.nbicc.diabetes.model.TrackingInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="tracking_date" property="trackingDate" jdbcType="DATE" />
+    <result column="tracking_type" property="trackingType" jdbcType="INTEGER" />
+    <result column="diet_recommend" property="dietRecommend" jdbcType="VARCHAR" />
+    <result column="sport_recommend" property="sportRecommend" jdbcType="VARCHAR" />
+    <result column="insulin_dosage_recommend" property="insulinDosageRecommend" jdbcType="VARCHAR" />
+    <result column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <result column="blood_sugar" property="bloodSugar" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tracking_date, tracking_type, diet_recommend, sport_recommend,insulin_dosage_recommend, student_id, blood_sugar,
+    created_at, updated_at, created_by, updated_by, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tracking_info
+    where id = #{id,jdbcType=VARCHAR} and del_flag = '0'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tracking_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.nbicc.diabetes.model.TrackingInfo" >
+    insert into tracking_info (id, tracking_date, tracking_type, 
+      diet_recommend, sport_recommend, insulin_dosage_recommend,student_id,
+      blood_sugar, created_at, updated_at, 
+      created_by, updated_by, del_flag
+      )
+    values (#{id,jdbcType=VARCHAR}, #{trackingDate,jdbcType=DATE}, #{trackingType,jdbcType=INTEGER}, 
+      #{dietRecommend,jdbcType=VARCHAR}, #{sportRecommend,jdbcType=VARCHAR}, #{insulinDosageRecommend,jdbcType=VARCHAR},
+      #{studentId,jdbcType=VARCHAR},
+      #{bloodSugar,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{updatedBy,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.nbicc.diabetes.model.TrackingInfo" >
+    update tracking_info
+    set tracking_date = #{trackingDate,jdbcType=DATE},
+      tracking_type = #{trackingType,jdbcType=INTEGER},
+      diet_recommend = #{dietRecommend,jdbcType=VARCHAR},
+      sport_recommend = #{sportRecommend,jdbcType=VARCHAR},
+      insulin_dosage_recommend = #{insulinDosageRecommend,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=VARCHAR},
+      blood_sugar = #{bloodSugar,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getTrackingInfoByStudentIdAndDate" resultMap="BaseResultMap" parameterType="com.nbicc.diabetes.model.TrackingInfo" >
+    select
+    <include refid="Base_Column_List" />
+    from tracking_info
+    where student_id = #{studentId,jdbcType=VARCHAR}
+    and tracking_date = #{trackingDate,jdbcType=DATE}
+    and tracking_type = #{trackingType,jdbcType=INTEGER}
+    and del_flag = '0'
+  </select>
+
+  <select id="getTrackingInfoByStudentId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tracking_info
+    where student_id = #{0,jdbcType=VARCHAR} and del_flag = '0'
+  </select>
+</mapper>
