@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>糖尿病培训班</title>
+  <link rel="stylesheet" href="css/framework7.ios.min.css">
+  <style>
+    .left {
+      width: 46%;
+    }
+
+    .right {
+      width: 46%;
+    }
+
+    .tab-link {
+      border: 1px solid rgba(87, 87, 87, 0.2);
+      width: 33.33%;
+      height: 44px;
+      padding: 0;
+      margin: 0;
+      border-radius: 0px;
+    }
+
+    .tab-link p {
+      line-height: 44px;
+      padding: 0;
+      margin: 0;
+    }
+
+    #tab1 ul {
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+      width: 800px;
+      height: 40px;
+      line-height: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 0px;
+      font-size: 12px;
+    }
+
+    #tab1 ul li {
+      display: block;
+      float: left;
+      text-indent: 2em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    #tab1 ul li:nth-child(1) {
+      width: 80px;
+      color: gray;
+    }
+
+    #tab1 ul li:nth-child(2) {
+      width: 80px;
+      color: gray;
+    }
+
+    #tab1 ul li:nth-child(3) {
+      width: 80px;
+      color: gray;
+    }
+
+    #tab1 ul li:nth-child(4) {
+      width: 100px;
+      color: gray;
+    }
+
+    #tab1 ul li:nth-child(5) {
+      width: 80px;
+      color: gray;
+    }
+
+    #tab1 ul li:nth-child(6) {
+      width: 120px;
+      color: gray;
+    }
+
+    #tab1 ul li:nth-child(7) {
+      width: 140px;
+      color: gray;
+    }
+
+    #tab1 ul li:nth-child(8) {
+      width: 120px;
+      color: gray;
+    }
+
+    #tab1 .title {
+      background: rgba(0, 0, 0, 0.1);
+      font-weight: bold;
+    }
+
+    .item-title {
+      font-size: 12px;
+    }
+
+    .item-input {
+      font-size: 12px;
+    }
+
+    .item-input input::-webkit-input-placeholder {
+      font-size: 12px;
+    }
+
+    .item-input select {
+      font-size: 12px;
+    }
+
+    .card-content-inner {
+      height: 150px;
+    }
+
+    .eat {
+      width: 50%;
+      height: 100px;
+      float: left;
+    }
+
+    .run {
+      width: 50%;
+      height: 100px;
+      float: left;
+    }
+
+    .advance {
+      width: 100%;
+      height: 50px;
+    }
+
+    .eat ul {
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+      width: 100%;
+      height: 20px;
+      line-height: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 0px;
+      font-size: 12px;
+    }
+
+    .eat ul li {
+      display: block;
+      float: left;
+      overflow: hidden;
+      width: 50%;
+    }
+
+    .eat ul:nth-child(1) {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .run ul {
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+      width: 100%;
+      height: 20px;
+      line-height: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 0px;
+      font-size: 12px;
+    }
+
+    .run ul li {
+      display: block;
+      float: left;
+      overflow: hidden;
+      width: 50%;
+    }
+
+    .run ul:nth-child(1) {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .advance ul {
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+      width: 100%;
+      height: 20px;
+      line-height: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 0px;
+      font-size: 12px;
+    }
+
+    .advance ul li {
+      display: block;
+      float: left;
+      overflow: hidden;
+      width: 50%;
+    }
+
+    .advance ul:nth-child(1) {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      appearance: none;
+      box-sizing: border-box;
+      border: none;
+      background: 0 0;
+      border-radius: 0;
+      box-shadow: none;
+      display: block;
+      padding: 0;
+      margin: 0 10px;
+      height: 43px;
+      color: #000;
+      font-size: 17px;
+      font-family: inherit
+    }
+  </style>
+</head>
+
+<body>
+  <div class="views">
+    <div class="view view-main">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="left">
+            <select id="active-list">
+                <option value="">请选择</option>
+            </select>
+            <select id="active-time">
+                <option value="">请选择</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="pages navbar-through toolbar-through">
+        <div data-page="index" class="page">
+          <div class="page-content hide-bars-on-scroll">
+            <div class="tabs">
+              <div id="tab1" class="tab active">
+                <ul class="title">
+                  <li>姓名</li>
+                  <li>年龄</li>
+                  <li>性别</li>
+                  <li>联系方式</li>
+                  <li>患病年数</li>
+                  <li>注射胰岛素年数</li>
+                  <li>注射胰岛素种类</li>
+                  <li>注射计量</li>
+                </ul>
+                <div class="member" id="member"></div>
+              </div>
+              <div id="tab2" class="tab">
+
+                <!-- <div class="card">
+                  <div class="card-header">张三</div>
+                  <div class="card-content">
+                    <div class="card-content-inner">
+                      <div class="eat">
+                        饮食
+                        <ul>
+                          <li>蔬菜量</li>
+                          <li>100g</li>
+                        </ul>
+                        <ul>
+                          <li>蛋白质量</li>
+                          <li>100g</li>
+                        </ul>
+                        <ul>
+                          <li>谷物量</li>
+                          <li>100g</li>
+                        </ul>
+                      </div>
+                      <div class="run">
+                        运动
+                        <ul>
+                          <li>强度</li>
+                          <li>3</li>
+                        </ul>
+                        <ul>
+                          <li>持续时间</li>
+                          <li>20min</li>
+                        </ul>
+                      </div>
+                      <div class="advance">
+                        建议
+                        <ul>
+                          <li>胰岛素使用量</li>
+                          <li>减少</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <a href="#" class="button button-small button-fill color-red blood" ff-data="1">添加血糖值</a>
+                    <p>当前血糖</p>
+                  </div>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
+          <div class="toolbar">
+            <div class="toolbar-inner" style="padding: 0 0;">
+              <a href="#" class="tab-link button" tab-data="1">
+                <p>添加成员</p>
+              </a>
+              <a href="#" class="tab-link button" tab-data="2">
+                <p>成员列表</p>
+              </a>
+              <a href="#" class="tab-link button" tab-data="3">
+                <p>饮食建议</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup popup-add">
+    <div class="content-block-title">新的成员信息</div>
+    <div class="list-block">
+      <ul>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">姓名</div>
+              <div class="item-input">
+                <input name="student_name" type="text" placeholder="请输入" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">联系方式</div>
+              <div class="item-input">
+                <input name="contact_info" type="tel" placeholder="请输入" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">性别</div>
+              <div class="item-input">
+                <select name="student_sex">
+                  <option value="男">男</option>
+                  <option value="女">女</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">年龄</div>
+              <div class="item-input">
+                <input name="student_age" type="text" placeholder="请输入" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">患病年数</div>
+              <div class="item-input">
+                <input name="diabetes_year" type="text" placeholder="请输入" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">注射年数</div>
+              <div class="item-input">
+                <input name="insulin_year" type="text" placeholder="请输入" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">胰岛素种类</div>
+              <div class="item-input">
+                <input name="insulin_type" type="text" placeholder="请输入" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">注射计量</div>
+              <div class="item-input">
+                <input name="insulin_dosage" type="text" placeholder="请输入" />
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="content-block">
+      <div class="row">
+        <div class="col-50">
+          <a href="#" class="button button-small button-fill color-red close-popup">取消</a>
+        </div>
+        <div class="col-50">
+          <a href="#" class="button button-small button-fill color-red upload">提交</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="js/framework7.js"></script>
+  <script>
+    var myApp = new Framework7({
+      modalTitle: "",
+      modalButtonOk: "确定",
+      modalButtonCancel: "取消"
+    });
+    var $$ = Dom7;
+    var mainView = myApp.addView(".view-main");
+
+    var activity_list = [],
+      member_list = [],
+      curr_activity = undefined,
+      curr_edit = undefined;
+    var url = location.search;
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+      var str = url.substr(1);
+      strs = str.split("&");
+      for (var i = 0; i < strs.length; i++) {
+        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+      }
+    }
+
+    //初始化页面
+    myApp
+      .onPageInit("index", function (page) {
+        ajax("GET", "/agent/" + theRequest.id + "/training/all", "", function (res) {
+          if (res.result_code == 0) {
+            activity_list = res.data;
+            $$("#active-list").html(BuildOption(res.data));
+          } else {
+            myApp.alert("获取开班信息失败");
+          }
+        });
+      })
+      .trigger();
+
+    //tabbar按钮
+    $$(".tab-link.button").on("click", function (e) {
+      var index = $$(this).attr("tab-data");
+      if (index == 1) {
+        openPopup(false);
+      } else if (index == 2) {
+        myApp.showTab("#tab1");
+      } else if (index == 3) {
+        myApp.showTab("#tab2");
+      }
+    });
+    //添加成员提交
+    $$(".upload").on("click", function (e) {
+      ajax(
+        "POST",
+        curr_edit ? "/agent/student/edit" : "/agent/student/add",
+        curr_edit
+          ? {
+            student_id: curr_edit,
+            student_name: $$("input[name='student_name']").val(),
+            student_age: Number($$("input[name='student_age']").val()),
+            student_sex: $$("select[name='student_sex']").val(),
+            contact_info: $$("input[name='contact_info']").val(),
+            diabetes_year: $$("input[name='diabetes_year']").val(),
+            insulin_year: $$("input[name='insulin_year']").val(),
+            insulin_type: $$("input[name='insulin_type']").val(),
+            insulin_dosage: $$("input[name='insulin_dosage']").val()
+          }
+          : {
+            training_id: curr_activity,
+            student_name: $$("input[name='student_name']").val(),
+            student_age: Number($$("input[name='student_age']").val()),
+            student_sex: $$("select[name='student_sex']").val(),
+            contact_info: $$("input[name='contact_info']").val(),
+            diabetes_year: $$("input[name='diabetes_year']").val(),
+            insulin_year: $$("input[name='insulin_year']").val(),
+            insulin_type: $$("input[name='insulin_type']").val(),
+            insulin_dosage: $$("input[name='insulin_dosage']").val()
+          },
+        function (res) {
+          if (res.result_code == 0) {
+            loadData();
+            myApp.closeModal();
+          } else myApp.alert("操作失败");
+        }
+      );
+    });
+
+    $$("#active-list").on("touchend", function (e) {
+      $$("#active-list").focus();
+    });
+    $$("#active-time").on("touchend", function (e) {
+      $$("#active-time").focus();
+    });
+    //活动列表
+    $$("#active-list").change(function () {
+      var ss = $$(this).val();
+      curr_activity = ss;
+      if (ss == "") {
+        curr_activity = undefined;
+        return;
+      }
+      var arr = [];
+      for (var i = 0; i < activity_list.length; i++) {
+        if (activity_list[i].training_id == ss) {
+          timeNode(
+            new Date(activity_list[i].start_time),
+            new Date(activity_list[i].end_time)
+          );
+        }
+      }
+      $$("#active-time").html(BuildOption(arr));
+
+      function timeNode(start, end) {
+        var time = parseInt(
+          (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+        );
+        var today = new Date().Format("yyyy-MM-dd"),
+          now_hour = new Date().getHours();
+        for (var i = 0; i <= time; i++) {
+          arr.push({
+            training_id: start.Format("yyyy-MM-dd") + "," + ss + ",0",
+            training_time: start.Format("yyyy-MM-dd"),
+            training_name: start.Format("yyyy-MM-dd") + "早",
+            select:
+            start.Format("yyyy-MM-dd") == today && now_hour >= 4 && now_hour <= 10
+              ? "1"
+              : "0"
+          });
+          arr.push({
+            training_id: start.Format("yyyy-MM-dd") + "," + ss + ",1",
+            training_time: start.Format("yyyy-MM-dd"),
+            training_name: start.Format("yyyy-MM-dd") + "中",
+            select:
+            start.Format("yyyy-MM-dd") == today && now_hour >= 4 && now_hour <= 10
+              ? "1"
+              : "0"
+          });
+          arr.push({
+            training_id: start.Format("yyyy-MM-dd") + "," + ss + ",2",
+            training_time: start.Format("yyyy-MM-dd"),
+            training_name: start.Format("yyyy-MM-dd") + "晚",
+            select:
+            start.Format("yyyy-MM-dd") == today && now_hour >= 4 && now_hour <= 10
+              ? "1"
+              : "0"
+          });
+          start.setDate(start.getDate() + 1);
+        }
+      }
+    });
+    //时间节点列表
+    $$("#active-time").change(function () {
+      loadData();
+    });
+    //请求数据
+    function loadData() {
+      var ss = $$("#active-time")
+        .val()
+        .split(",");
+      ajax(
+        "GET",
+        "/agent/" +
+        ss[1] +
+        "/students?tracking_date=" +
+        ss[0].replace(/\//g, "-") +
+        "&tracking_type=" +
+        ss[2],
+        {},
+        function (res) {
+          if (res.result_code == 0) {
+            member_list = res.data;
+            $$("#member").html(BuildMenberTable(res.data));
+            $$("#tab2").html(BuildEatTable(member_list));
+            setTimeout(function () {
+              setMemberTap();
+              setBlood();
+            }, 10);
+          } else {
+            layer.msg("获取列表失败");
+          }
+        }
+      );
+    }
+
+    //tabbar页面切换回调
+    $$("#tab1").on("show", function () { });
+    $$("#tab2").on("show", function () { });
+    //填写血糖
+    function setBlood() {
+      $$(".blood").on("click", function () {
+        var _this = this,
+          id = $$(this).attr("ff-id");
+        if (id == "undefined") {
+          myApp.alert("还没有给出饮食运动建议");
+          return;
+        }
+        myApp.prompt("填写餐后血糖值", function (value) {
+          ajax(
+            "POST",
+            "/agent/bloodsugar/edit",
+            { tracking_id: id, blood_sugar: value },
+            function (res) {
+              if (res.result_code == 0)
+                $$(_this)
+                  .next("p")
+                  .text("当前血糖值: " + value);
+              else myApp.alert("修改血糖值失败");
+            }
+          );
+        });
+      });
+    }
+    //学生初始化点击事件
+    function setMemberTap() {
+      $$("#member")
+        .find("ul")
+        .on("click", function (e) {
+          var index = $$(this).attr("lay-id");
+          openPopup(true, member_list[index]);
+        });
+    }
+    //打开popup
+    function openPopup(edit, data) {
+      curr_edit = edit ? data.student_id : undefined;
+      $$("input[name='student_name']").val(edit ? data.student_name : "");
+      $$("input[name='student_age']").val(edit ? data.student_age : "");
+      $$("select[name='student_sex']").val(edit ? data.student_sex : "男");
+      $$("input[name='contact_info']").val(edit ? data.contact_info : "");
+      $$("input[name='diabetes_year']").val(edit ? data.diabetes_year : "");
+      $$("input[name='insulin_year']").val(edit ? data.insulin_year : "");
+      $$("input[name='insulin_type']").val(edit ? data.insulin_type : "");
+      $$("input[name='insulin_dosage']").val(edit ? data.insulin_dosage : "");
+      if (curr_activity) myApp.popup(".popup-add");
+      else myApp.alert("请先选择班级");
+    }
+    //构建下拉选项html
+    function BuildOption(arr) {
+      var html = '<option value="">请选择</option>';
+      arr.forEach(function (item, index) {
+        html +=
+          '<option value="' +
+          item.training_id +
+          '">' +
+          item.training_name +
+          "</option>";
+        // html +=
+        //   "<option value='" +
+        //   item.training_id +
+        //   "'" +
+        //   (item.select == "1" ? "selected" : "") +
+        //   ">" +
+        //   item.training_name +
+        //   "</option>";
+      });
+      return html;
+    }
+    //构建学生表格html
+    function BuildMenberTable(arr) {
+      var html = "";
+      arr.forEach(function (item, index) {
+        html +=
+          "<ul lay-id=" +
+          index +
+          "><li>" +
+          item.student_name +
+          "</li><li>" +
+          item.student_age +
+          "</li><li>" +
+          item.student_sex +
+          "</li><li>" +
+          item.contact_info +
+          "</li><li>" +
+          item.diabetes_year +
+          "</li><li>" +
+          item.insulin_year +
+          "</li><li>" +
+          item.insulin_type +
+          "</li><li>" +
+          item.insulin_dosage +
+          "</li></ul>";
+      });
+      return html;
+    }
+    //构建运动饮食建议html
+    function BuildEatTable(arr) {
+      var html = "";
+      arr.forEach(function (item, index) {
+        var diet_recommend = (item.diet_recommend || "").split("&");
+        var sport_recommend = (item.sport_recommend || "").split("&");
+        html +=
+          '<div class="card"><div class="card-header">' +
+          item.student_name +
+          '</div><div class="card-content"><div class="card-content-inner"><div class="eat">饮食<ul><li>蔬菜量</li><li>' +
+          (diet_recommend[0] || "无") +
+          "</li></ul><ul><li>蛋白质量</li><li>" +
+          (diet_recommend[1] || "无") +
+          "</li></ul><ul><li>谷物量</li><li>" +
+          (diet_recommend[2] || "无") +
+          '</li></ul></div><div class="run">运动<ul><li>强度</li><li>' +
+          (sport_recommend[0] || "无") +
+          "</li></ul><ul><li>持续时间</li><li>" +
+          (sport_recommend[1] || "无") +
+          '</li></ul></div><div class="advance">建议<ul><li>胰岛素使用量</li><li>' +
+          (item.insulin_dosage || "无") +
+          '</li></ul></div></div></div><div class="card-footer"><a href="#" class="button button-small button-fill color-red blood" ff-id="' +
+          item.tracking_id +
+          '">添加血糖值</a><p>当前血糖:' +
+          (item.blood_sugar || "无") +
+          "</p></div></div>";
+      });
+      return html;
+    }
+    //万恶的AJAX
+    function ajax(method, path, body, cb) {
+      var xmlhttp;
+      if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
+      else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      xmlhttp.open(method, "http://develop.iot-expeed.com:5097" + path, true);
+      xmlhttp.setRequestHeader("Content-type", "application/json");
+      xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4)
+          if (xmlhttp.status >= 200 && xmlhttp.status <= 300)
+            cb(JSON.parse(xmlhttp.responseText));
+      };
+      xmlhttp.send(method == "POST" ? JSON.stringify(body) : "");
+    }
+    Date.prototype.Format = function (fmt) {
+      var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        S: this.getMilliseconds() //毫秒
+      };
+      if (/(y+)/.test(fmt))
+        fmt = fmt.replace(
+          RegExp.$1,
+          (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+        );
+      for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+          fmt = fmt.replace(
+            RegExp.$1,
+            RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)
+          );
+      return fmt;
+    };
+  </script>
+</body>
+
+</html>

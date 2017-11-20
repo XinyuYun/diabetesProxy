@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>糖尿病培训班后台管理</title>
+
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <style>
+        body {
+            min-width: 1000px;
+        }
+
+        .layui-nav-logo {
+            float: left;
+            padding: 0 50px;
+            line-height: 60px;
+            font-size: 25px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .float-right {
+            float: right;
+        }
+
+        .position-abs {
+            /* position: absolute; */
+            /* margin-left: 450px; */
+            width: 626px;
+            float: left;
+            margin-left: 10px;
+        }
+
+        .position-rel {
+            /* position: relative; */
+            width: 414px;
+            float: left;
+            margin-left: 10px;
+        }
+
+        .input-add {
+            width: 90%;
+            margin: 10px 5%;
+        }
+
+        .info-bg {
+            position: absolute;
+            top: 50%;
+            bottom: 50%;
+            left: 50%;
+            right: 50%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.5);
+
+            transition-property: top left bottom right;
+            -moz-transition-property: top left bottom right;
+            -o-transition-property: top left bottom right;
+            -webkit-transition-property: top left bottom right;
+            z-index: 9999;
+
+            transition-duration: 0.1s;
+            -moz-transition-duration: 0.1s;
+            -webkit-transition-duration: 0.1s;
+            -webkit-transition-duration: 0.1s;
+        }
+
+        .info-bg.end {
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+        }
+
+        .info-box {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+            width: 751px;
+            margin-top: -160px;
+            margin-left: -376px;
+            height: 320px;
+            overflow: visible;
+
+            border: 1px solid gray;
+            box-shadow: 0px 0px 5px gray;
+            background-color: white;
+            z-index: 999;
+            padding: 10px 10px;
+        }
+
+        #member_menger .info-box {
+            width: 1051px;
+            margin-left: -526px;
+            height: 350px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-header">
+        <ul class="layui-nav layui-bg-blue" lay-filter="bodyTab">
+            <div class="layui-nav-logo">糖尿病培训班后台管理页面</div>
+            <li class="layui-nav-item layui-this" lay-id="1">
+                <a href="">项目管理</a>
+            </li>
+            <li class="layui-nav-item" lay-id="2">
+                <a href="">饮食运动建议</a>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-form">
+        <div class="layui-tab" lay-filter="contents">
+            <ul class="layui-tab-title hidden">
+                <li lay-id="1"></li>
+                <li lay-id="2"></li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <div style="position: relative;width: 100%;">
+                        <div class="position-rel">
+                            <blockquote class="layui-elem-quote" style="border-left: 5px solid #1E9FFF;">
+                                代理商管理
+                                <button class="layui-btn layui-btn layui-btn-mini layui-bg-blue float-right" lay-id="1">添加代理商</button>
+                            </blockquote>
+                            <div id="agents" lay-filter="agents"></div>
+                        </div>
+                        <div class="position-abs">
+                            <blockquote class="layui-elem-quote" style="border-left: 5px solid #1E9FFF;">
+                                开班管理
+                                <button class="layui-btn layui-btn layui-btn-mini layui-bg-blue float-right" lay-id="2">开始新班</button>
+                            </blockquote>
+                            <div id="activity" lay-filter="activity"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div>
+                        <blockquote class="layui-elem-quote" style="border-left: 5px solid #1E9FFF;">饮食运动建议
+                            <div class="float-right" style="margin-top: -7px;">
+                                <label class="layui-form-label" style="width: 60px;">选择场次:</label>
+                                <div class="layui-input-block">
+                                    <select name="activity_id" id="select_activity" lay-filter="select_activity"></select>
+                                </div>
+                            </div>
+                        </blockquote>
+                        <div id="member" lay-filter="member"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="info-bg" id="activity_menger">
+        <div class="info-box">
+            <form class="layui-form" action="">
+                <blockquote class="layui-elem-quote" style="border-left: 5px solid #1E9FFF;">开班管理</blockquote>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 60px;">开班名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="training_name" required lay-verify="activity_title" placeholder="请输入名称" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 60px;">开始时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="start_time" class="layui-input" id="activity—start" required lay-verify="activity_start">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 60px;">结束时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="end_time" class="layui-input" id="activity—end" required lay-verify="activity_end">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 60px;">代理商</label>
+                    <div class="layui-input-block">
+                        <select name="agent_id" id="select_agent" required lay-verify="activity_agent"></select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-bg-blue" lay-submit lay-filter="activity_btn">确认</button>
+                        <button class="layui-btn layui-btn-primary close">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="info-bg" id="member_menger">
+        <div class="info-box">
+            <form class="layui-form" action="">
+                <blockquote class="layui-elem-quote" style="border-left: 5px solid #1E9FFF;">饮食、运动建议</blockquote>
+                <div style="height: 10px;"></div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">选择时间</label>
+                    <div class="layui-input-block">
+                        <select name="member_time" id="select_member" required lay-filter="member_time"></select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">当前血糖</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="member_blood_sugar" class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">胰岛素剂量</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="member_dose" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">蔬菜</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="member_vegetable" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">蛋白质</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="member_protein" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">谷物</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="member_grain" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">运动强度</label>
+                        <div class="layui-input-inline">
+                            <select name="member_strength">
+                                <option value="">请选择</option>
+                                <option value="强">强</option>
+                                <option value="中">中</option>
+                                <option value="弱">弱</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">运动时间</label>
+                        <div class="layui-input-inline">
+                            <select name="member_duration">
+                                <option value="">请选择</option>
+                                <option value="半小时">半小时</option>
+                                <option value="一小时">一小时</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-bg-blue" lay-submit lay-filter="member_btn">确认</button>
+                        <button class="layui-btn layui-btn-primary close">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/html" id="advice">
+        <a class="layui-btn layui-btn-mini" lay-event="edit">查看与编辑</a>
+    </script>
+    <script type="text/html" id="delete">
+        <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+    </script>
+    <script src="../layui/layui.js"></script>
+    <script src="../util/compiled.js"></script>
+    <script>
+        layui.use(["layer", "element", "table", "form", "laydate"], function () {
+            var element = layui.element, layer = layui.layer, table = layui.table, form = layui.form, laydate = layui.laydate, $ = layui.jquery, agent_list = [], activity_list = [];
+            $$ = $;
+
+            laydate.render({
+                elem: '#activity—start'
+                , showBottom: false
+            });
+            laydate.render({
+                elem: '#activity—end'
+                , showBottom: false
+            });
+
+            //验证
+            form.verify({
+                username: function (value, item) {
+                    if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+                        return '用户名不能有特殊字符';
+                    }
+                    if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+                        return '用户名首尾不能出现下划线\'_\'';
+                    }
+                },
+                pass: [
+                    /^[\S]{6,12}$/
+                    , '密码必须6到12位，且不能出现空格'
+                ],
+                activity_title: function (value) {
+                    if (!value) return "名称不能为空";
+                },
+                activity_start: function (value) {
+                    if (!value) return "开始时间不能为空"
+                },
+                activity_end: function (value) {
+                    if (!value) return "结束时间不能为空"
+                },
+                activity_agent: function (value) {
+                    if (!value && value != "请选择代理商") return "代理商不能为空";
+                }
+            });
+
+            //点击导航栏
+            $(".layui-nav-item").on("click", function (e) {
+                return false;
+            });
+            element.on('nav(bodyTab)', function (elem) {
+                if ($(elem).attr("lay-id") == 2) {
+                    $("#select_activity").html(initOption(activity_list, {}, "training_id", "training_name"));
+                    form.render();
+                }
+                element.tabChange('contents', $(elem).attr("lay-id"));
+            });
+
+            //点击两个新增按钮
+            $(".layui-bg-blue").on("click", function (e) {
+                var id = $(this).attr("lay-id");
+                if (id == "1") {
+                    init_alert_agent(false);
+                } else if (id == "2") {
+                    init_alert_activity(false);
+                }
+            });
+            //代理人操作栏
+            table.on('tool(agents)', function (obj) {
+                var data = obj.data;
+                var layEvent = obj.event;
+                var tr = obj.tr;
+
+                if (layEvent === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        toPOST("/admin/agent/delete", { agent_id: data.agent_id }, function (res) {
+                            if (res.result_code == 0) {
+                                obj.del();
+                                layer.close(index);
+                            } else {
+                                layer.msg("删除失败");
+                            }
+                        })
+                    });
+                } else if (layEvent === 'edit') {
+                    init_alert_agent(true, data);
+                }
+            });
+            //开班操作栏
+            table.on('tool(activity)', function (obj) {
+                var data = obj.data;
+                var layEvent = obj.event;
+                var tr = obj.tr;
+
+                if (layEvent === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        toPOST("/admin/training/delete", { training_id: data.training_id }, function (res) {
+                            if (res.result_code == 0) {
+                                obj.del();
+                                layer.close(index);
+                            } else {
+                                layer.msg("删除失败");
+                            }
+                        })
+                    });
+                } else if (layEvent === 'edit') {
+                    init_alert_activity(true, data);
+                }
+            });
+
+            //创建表格
+            creatTable("agents");
+            creatTable("activity");
+            creatTable("member");
+            function creatTable(value, url) {
+                if (value == "agents") {
+                    init_table("agents", [[
+                        { field: 'agent_name', title: '商户名', width: 150 }
+                        , { field: 'is_active', title: '是否活跃', width: 150 }
+                        , { toolbar: '#delete', title: '操作', width: 110 }
+                    ]], [], getPath() + "/admin/agent/all", "get");
+                } else if (value == "activity") {
+                    init_table("activity", [[
+                        { field: 'training_name', title: '名称', width: 150 }
+                        , { field: 'start_time', title: '开始时间', width: 120 }
+                        , { field: 'end_time', title: '结束时间', width: 120 }
+                        , { field: 'agent_name', title: '代理商', width: 120 }
+                        , { toolbar: '#delete', title: '操作', width: 110 }
+                    ]], [], getPath() + "/admin/training/all", "get");
+                } else if (value == "member") {
+                    init_table("member", [[
+                        { field: 'student_name', title: '学员名字', width: 150 }
+                        , { field: 'student_age', title: '学员年龄', width: 120 }
+                        , { field: 'student_sex', title: '学员性别', width: 120 }
+                        , { field: 'contact_info', title: '联系方式', width: 120 }
+                        , { field: 'diabetes_year', title: '糖尿病年数', width: 120 }
+                        , { field: 'insulin_year', title: '注射胰岛素年数', width: 150 }
+                        , { field: 'insulin_type', title: '胰岛素类型', width: 120 }
+                        , { field: 'insulin_dosage', title: '建议注射量', width: 120 }
+                        , { toolbar: '#advice', title: '饮食运动建议', width: 120, align: 'center' }
+                    ]], [], url, "get");
+                }
+            };
+            function init_table(id, option, data, url, method, body) {
+                table.render({
+                    elem: '#' + id
+                    , data: data
+                    , url: url
+                    , method: method
+                    , where: body
+                    , response: {
+                        statusName: 'result_code'
+                        , statusCode: 0
+                        , dataName: 'data'
+                    }
+                    , cols: option
+                    , even: true
+                    , page: false
+                    , parse: function (data) {
+                        if (id == "agents") agent_list = data;
+                        if (id == "activity") activity_list = data;
+                        if (id == "member") curr_activity_menber_list = data;
+                        return data;
+                    }
+                });
+            };
+            //代理人新增或编辑的弹框操作
+            function init_alert_agent(edit, data) {
+
+                var html = '<input type="text" name="ag-name" placeholder="用户名" class="layui-input input-add" lay-verify="username" value="' + (edit ? data.agent_name : "") + '"><input type="text" name="ag-pass" placeholder="密码" class="layui-input input-add" lay-verify="pass">', area = ['250px', '210px'];
+                if (edit) {
+                    area[1] = "250px";
+                    html += '<div class="input-add float-right">允许登录<input type="checkbox" name="checkbox" style="margin-left:10px;" ' + (data.is_active == "0" ? "checked" : "") + '></div>';
+                }
+                layer.open({
+                    type: 1,
+                    area: area,
+                    content: html,
+                    btn: [edit ? '编辑' : '添加', '取消']
+                    , yes: function (index, layero) {
+                        toPOST(edit ? "/admin/agent/edit" : "/admin/agent/add", edit ? {
+                            agent_id: data.agent_id, agent_psw: $(layero).find("input[name='ag-pass']").val(), is_active: ($(layero).find("input[name='checkbox']:checked")).length == 1 ? 0 : 1
+                        } : {
+                                agent_name: $(layero).find("input[name='ag-name']").val(), agent_psw: $(layero).find("input[name='ag-pass']").val()
+                            }, function (res) {
+                                if (res.result_code != 0) {
+                                    layer.msg("操作失败");
+                                } else {
+                                    creatTable("agents");
+                                    layer.close(index);
+                                }
+                            });
+                    }
+                    , btn2: function (index, layero) { }
+                });
+            };
+            //开班新增或编辑弹框操作
+            function init_alert_activity(edit, data) {
+                var dom = $("#select_agent")
+                if (dom) {
+                    dom.html(initOption(agent_list, edit ? data : { agent_id: 0 }, "agent_id", "agent_name"));
+                    form.render();
+                }
+                $("input[name='training_name']").val(edit ? data.training_name : "");
+                $("input[name='start_time']").val(edit ? data.start_time : "");
+                $("input[name='end_time']").val(edit ? data.end_time : "");
+
+                $("#activity_menger").show();
+                $("#activity_menger").addClass("end");
+
+                form.on('submit(activity_btn)', function (btn_data) {
+                    if (btn_data.field.start_time > btn_data.field.end_time) {
+                        layer.msg("开始时间不能晚于结束时间");
+                    } else {
+                        toPOST(edit ? "/admin/training/edit" : "/admin/training/add", $.extend(btn_data.field, edit ? { training_id: data.training_id } : {}), function (res) {
+                            if (res.result_code == 0) {
+                                creatTable("activity");
+                                $("#activity_menger").removeClass("end");
+                            } else {
+                                layer.msg("操作失败");
+                            }
+                        })
+                    }
+                    return false;
+                });
+                $(".close").on("click", function (e) {
+                    $("#activity_menger").removeClass("end");
+                    return false;
+                });
+            };
+            function initOption(data, select, n_id, n_name) {
+                var path = "<option value=''>请选择</option>";
+                for (var i in data) {
+                    path += "<option value='" + data[i][n_id] + "'" + (select[n_id] == data[i][n_id] ? "selected" : "") + ">" + data[i][n_name] + "</option>";
+                }
+                return path;
+            };
+
+
+            /*饮食建议页面方法汇总*/
+            var curr_activity_menber = undefined, curr_activity_menber_list = [], curr_activity_menber_tracking_id = undefined;
+            form.on('select(select_activity)', function (data) {
+                if (data.value == "") {
+                    curr_activity_menber = undefined;
+                    return;
+                }
+                for (var i = 0; i < activity_list.length; i++) {
+                    if (activity_list[i].training_id == data.value) {
+                        curr_activity_menber = activity_list[i];
+                        break;
+                    }
+                }
+                creatTable("member", getPath() + "/admin/" + data.value + "/students");
+            });
+            //学员操作栏监听
+            table.on('tool(member)', function (obj) {
+                var data = obj.data;
+                var layEvent = obj.event;
+                var tr = obj.tr;
+                if (layEvent === 'edit') {
+                    init_alert_member(false, data);
+                }
+            });
+
+            //学员建议新增或编辑弹框操作
+            function init_alert_member(edit, data) {
+                $("#member_menger").show();
+                $("#member_menger").addClass("end");
+
+                var html = init_member_time(new Date(curr_activity_menber.start_time), new Date(curr_activity_menber.end_time), data);
+                edit = html.edit;
+                $("#select_member").html(html.path);
+                form.render();
+                form.on('select(member_time)', function (data) {
+                    if (data.value == "") {
+                        return false;
+                    }
+                    var index = data.value.split(",");
+                    for (var i = 0; i < curr_activity_menber_list.length; i++) {
+                        if (curr_activity_menber_list[i].student_id == index[1]) {
+                            edit = loadMember_Data(curr_activity_menber_list[i], data.value);
+                            break;
+                        }
+                    }
+                    return false;
+                });
+                form.on('submit(member_btn)', function (btn_data) {
+                    var body = {
+                        tracking_date: ((btn_data.field.member_time).split(",")[0]).replace(/\//g, "-"),
+                        tracking_type: Number((btn_data.field.member_time).split(",")[2]),
+                        diet_recommend: btn_data.field.member_vegetable + "&" + btn_data.field.member_protein + "&" + btn_data.field.member_grain,
+                        sport_recommend: btn_data.field.member_strength + "&" + btn_data.field.member_duration,
+                        insulin_dosage_recommend: btn_data.field.member_dose
+                    }
+                    toPOST(edit ? "/admin/advice/edit" : "/admin/advice/add", $.extend(body, edit ? { tracking_id: curr_activity_menber_tracking_id } : { student_id: data.student_id }), function (res) {
+                        if (res.result_code == 0) {
+                            creatTable("member", getPath() + "/admin/" + curr_activity_menber.training_id + "/students");
+                            layer.msg("操作成功");
+                        } else {
+                            layer.msg("操作失败");
+                        }
+                    })
+                    return false;
+                });
+                $(".close").on("click", function (e) {
+                    $("#member_menger").removeClass("end");
+                    return false;
+                });
+            };
+            function init_member_time(start, end, obj) {
+                var path = "<option value=''>请选择</option>", data = timeNode(start, end, obj), edit = false;
+                for (var i in data) {
+                    path += "<option value='" + data[i].training_id + "'" + (data[i].select == "1" ? "selected" : "") + ">" + data[i].training_name + "</option>";
+                    if (data[i].select == "1") {
+                        edit = true;
+                        loadMember_Data(obj, data[i].training_id);
+                    }
+                }
+                return { path: path, edit: edit };
+            }
+            function loadMember_Data(user, time) {
+                var date = (time.split(","))[0].replace(/\//g, "-"), status = (time.split(","))[2];
+                if (user.trackings && user.trackings.length > 0) {
+                    for (var i = 0; i < user.trackings.length; i++) {
+                        if (user.trackings[i].tracking_date == date) {
+                            if (user.trackings[i].tracking_record && user.trackings[i].tracking_record.length > 0) {
+                                for (var j = 0; j < user.trackings[i].tracking_record.length; j++) {
+                                    if (user.trackings[i].tracking_record[j].tracking_type == status) {
+                                        curr_activity_menber_tracking_id = user.trackings[i].tracking_record[j].tracking_id;
+                                        var diet_recommend = (user.trackings[i].tracking_record[j].diet_recommend || "").split("&");
+                                        var sport_recommend = (user.trackings[i].tracking_record[j].sport_recommend || "").split("&");
+                                        $("input[name='member_blood_sugar']").val(user.trackings[i].tracking_record[j].blood_sugar);
+                                        $("input[name='member_dose']").val(user.trackings[i].tracking_record[j].insulin_dosage_recommend);
+                                        $("input[name='member_vegetable']").val(diet_recommend[0]);
+                                        $("input[name='member_protein']").val(diet_recommend[1]);
+                                        $("input[name='member_grain']").val(diet_recommend[2]);
+
+                                        $("select[name='member_strength']").val(sport_recommend[0]);
+                                        $("select[name='member_duration']").val(sport_recommend[1]);
+                                        form.render('select');
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                curr_activity_menber_tracking_id = undefined;
+                $("input[name='member_blood_sugar']").val("");
+                $("input[name='member_dose']").val("");
+                $("input[name='member_vegetable']").val("");
+                $("input[name='member_protein']").val("");
+                $("input[name='member_grain']").val("");
+                $("select[name='member_strength']").val("");
+                $("select[name='member_duration']").val("");
+                form.render('select');
+                return false;
+            };
+            function timeNode(start, end, obj) {
+                var time = parseInt(
+                    (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+                ), arr = [], today = (new Date()).Format("yyyy-MM-dd"), now_hour = (new Date()).getHours();
+                for (var i = 0; i <= time; i++) {
+                    arr.push({
+                        training_id: start.Format("yyyy-MM-dd") + "," + obj.student_id + ",0",
+                        training_time: start.Format("yyyy-MM-dd"),
+                        training_name: start.Format("yyyy-MM-dd") + "早",
+                        select: (start.Format("yyyy-MM-dd") == today && now_hour >= 4 && now_hour <= 10) ? "1" : "0"
+                    });
+                    arr.push({
+                        training_id: start.Format("yyyy-MM-dd") + "," + obj.student_id + ",1",
+                        training_time: start.Format("yyyy-MM-dd"),
+                        training_name: start.Format("yyyy-MM-dd") + "中",
+                        select: (start.Format("yyyy-MM-dd") == today && now_hour >= 11 && now_hour <= 15) ? "1" : "0"
+                    });
+                    arr.push({
+                        training_id: start.Format("yyyy-MM-dd") + "," + obj.student_id + ",2",
+                        training_name: start.Format("yyyy-MM-dd") + "晚",
+                        select: (start.Format("yyyy-MM-dd") == today && now_hour >= 16 && now_hour <= 22) ? "1" : "0"
+                    });
+                    start.setDate(start.getDate() + 1);
+                }
+                return arr;
+            };
+            Date.prototype.Format = function (fmt) {
+                var o = {
+                    "M+": this.getMonth() + 1, //月份 
+                    "d+": this.getDate(), //日 
+                    "h+": this.getHours(), //小时 
+                    "m+": this.getMinutes(), //分 
+                    "s+": this.getSeconds(), //秒 
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+                    "S": this.getMilliseconds() //毫秒 
+                };
+                if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                for (var k in o)
+                    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                return fmt;
+            };
+        });
+    </script>
+
+</body>
+
+</html>
